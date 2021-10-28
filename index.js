@@ -11,6 +11,19 @@ dotenv.config()
 const app = express()
 const port = process.env.port
 const articles = []
+const news_sources = [{
+    name: '',
+    link: ''
+},
+{
+    name: '',
+    link: ''
+},
+{
+    name: '',
+    link: ''
+},
+]
 
 
 
@@ -26,11 +39,11 @@ app.listen(port, () => {
 
 //making axios get query
 app.get('/crypto', (req, res) =>{
-    axios.get('https://www.bloomberg.com/crypto').then((response) =>{
+    axios.get('https://www.newsbtc.com/').then((response) =>{
         const html_page = response.data
         // console.log(html_page)
         const $ = cheerio.load(html_page)
-        $("a", html_page).each(function () {
+        $('a:contains("Bitcoin")', html_page).each(function () {
            const title = $(this).text()
            const url =$(this).attr('href')
             articles.push({
@@ -39,7 +52,7 @@ app.get('/crypto', (req, res) =>{
             })
         })
         res.json(articles)
-        console.log(articles)
+        // console.log(articles)
     }).catch((err) => console.log(err))
 })
 
