@@ -12,18 +12,24 @@ const app = express()
 const port = process.env.port
 const articles = []
 const news_sources = [{
-    name: '',
+    name: 'site1',
     link: ''
 },
 {
-    name: '',
+    name: 'site2',
     link: ''
 },
 {
-    name: '',
+    name: 'site3',
     link: ''
 },
 ]
+
+
+for (let site in news_sources){
+    articles.push(news_sources[site].name)
+    // console.log(site.name)
+}
 
 
 
@@ -54,6 +60,11 @@ app.get('/crypto', (req, res) =>{
         res.json(articles)
         // console.log(articles)
     }).catch((err) => console.log(err))
+})
+
+//axios get request to test functions
+app.get('/ftest', (req, res) => {
+    console.log(articles)
 })
 
 
